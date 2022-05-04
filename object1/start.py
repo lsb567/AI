@@ -1,3 +1,5 @@
+# 点对应状态，边对应行为
+
 from sqlalchemy import intersect
 from queue import PriorityQueue
 
@@ -42,7 +44,8 @@ class Problem():
         self.GoalState = goal  # 目标状态
 
     def GoalTest(self, state):  # 测试是否达到目标
-        pass
+        if state == self.GoalState:
+            return True
 
     def Action(self, state):  # 获取某状态下的行为集合
         pass
@@ -67,7 +70,8 @@ class Node():
             self.Action = action  # 生成此节点的行为
             self.PathCost = parent.PathCost + problem.StepCost(parent.State, action)  # 到此节点路径长度
         self.g = self.PathCost  # g信息
-        self.h = intersect.distance(problem.Points[self.State], problem.Points[problem.GoalState])  # h信息
+        # self.h = intersect.distance(problem.Points[self.State], problem.Points[problem.GoalState])  # h信息  # 没有distance方法
+        self.h = 1
         self.f = self.g + self.h  # f信息
 
     def __lt__(self, other):
@@ -75,7 +79,7 @@ class Node():
 
 
 def Solution(node):  # 从node的定义可知，根据node.parent可以回溯出整个解决方案所到达 的state和相应的action序列，因此可设计一个函数Solution(node)获得这些序列。
-    pass
+    return []
 
 
 def Astar(problem):
@@ -98,6 +102,5 @@ def Astar(problem):
 
 
 if __name__ == '__main__':
-    print(points[1][0])
-    print(points[23][1] < dd)
-    print(Adj)
+    problem = Problem(points, Adj, 1, 34)
+
