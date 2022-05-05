@@ -3,7 +3,7 @@
 from sqlalchemy import intersect
 from queue import PriorityQueue
 
-points = [(0, 0), (34, 213), (75, 170), (75, 285), (60, 355), (34, 470), (160, 570), (240, 320), (240, 472), (190, 490),
+points = [(0, 0), (34, 113), (75, 170), (75, 285), (60, 355), (34, 470), (160, 570), (240, 320), (240, 472), (190, 490),
           (340, 320), (440, 280), (440, 170), (460, 225), (425, 380), (340, 430), (340, 570), (530, 290), (505, 345),
           (425, 575), (485, 520), (585, 205), (650, 170), (585, 285), (505, 570), (720, 200), (720, 285), (660, 335),
           (650, 345), (650, 570), (665, 540), (735, 320), (715, 570), (755, 530), (775, 565)]
@@ -34,7 +34,14 @@ Adj[27][31] = Adj[31][27] = int(pow(pow(points[27][0] - points[31][0], 2) + pow(
 Adj[31][33] = Adj[33][31] = int(pow(pow(points[31][0] - points[33][0], 2) + pow(points[31][1] - points[33][1], 2), 0.5))
 Adj[33][34] = Adj[34][33] = int(pow(pow(points[33][0] - points[34][0], 2) + pow(points[33][1] - points[34][1], 2), 0.5))
 Adj[12][28] = Adj[28][12] = int(pow(pow(points[12][0] - points[28][0], 2) + pow(points[12][1] - points[28][1], 2), 0.5))
-
+Adj[1][12] = Adj[12][1] = int(pow(pow(points[1][0] - points[12][0], 2) + pow(points[1][1] - points[12][1], 2), 0.5))
+Adj[12][13] = Adj[13][12] = int(pow(pow(points[12][0] - points[13][0], 2) + pow(points[12][1] - points[13][1], 2), 0.5))
+Adj[13][17] = Adj[17][13] = int(pow(pow(points[13][0] - points[17][0], 2) + pow(points[13][1] - points[17][1], 2), 0.5))
+Adj[17][28] = Adj[28][17] = int(pow(pow(points[17][0] - points[28][0], 2) + pow(points[17][1] - points[28][1], 2), 0.5))
+Adj[28][31] = Adj[31][28] = int(pow(pow(points[28][0] - points[31][0], 2) + pow(points[28][1] - points[31][1], 2), 0.5))
+Adj[23][27] = Adj[27][23] = int(pow(pow(points[23][0] - points[27][0], 2) + pow(points[23][1] - points[27][1], 2), 0.5))
+Adj[27][31] = Adj[31][27] = int(pow(pow(points[27][0] - points[31][0], 2) + pow(points[27][1] - points[31][1], 2), 0.5))
+Adj[12][28] = Adj[28][12] = int(pow(pow(points[12][0] - points[28][0], 2) + pow(points[12][1] - points[28][1], 2), 0.5))
 
 class Problem():
     def __init__(self, points, Adj, start, goal):
@@ -74,12 +81,15 @@ class Node():
             self.Action = action  # 生成此节点的行为
             self.PathCost = parent.PathCost + problem.StepCost(parent.State, action)  # 到此节点路径长度
         self.g = self.PathCost  # g信息
-        # self.h = intersect.distance(problem.Points[self.State], problem.Points[problem.GoalState])  # h信息  # 没有distance方法
-        self.h = 1
+        self.h = distance(problem.Points[self.State], problem.Points[problem.GoalState])  # h信息  # 没有distance方法
         self.f = self.g + self.h  # f信息
 
-    def __lt__(self, other):
+    def __lt__(self, other):  # 优先队列判别条件
             return other.f > self.f
+
+
+def distance(a, b):
+    return int(pow(pow(a[0] - b[0], 2) + pow(a[1] - b[1], 2), 0.5))
 
 
 def Solution(node):  # 从node的定义可知，根据node.parent可以回溯出整个解决方案所到达 的state和相应的action序列，因此可设计一个函数Solution(node)获得这些序列。
@@ -87,7 +97,7 @@ def Solution(node):  # 从node的定义可知，根据node.parent可以回溯出
     while node:
         res.append(node.State)
         node = node.Parent
-    return res
+    return res[::-1]
 
 
 def Astar(problem):
