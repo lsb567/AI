@@ -48,13 +48,17 @@ class Problem():
             return True
 
     def Action(self, state):  # 获取某状态下的行为集合
-        pass
+        states = []
+        for i in range(state + 1, 35):
+            if Adj[state][i] != float('inf'):
+                states.append(i)
+        return states
 
     def Result(self, state, action):  # 获取在某状态下采取某行为后的新状态
-        pass
+        return action
 
     def StepCost(self, state, action):  # 获取在某状态下采取某行为需要的费用
-        pass
+        return Adj[state][action]
 
 
 class Node():
@@ -79,7 +83,11 @@ class Node():
 
 
 def Solution(node):  # 从node的定义可知，根据node.parent可以回溯出整个解决方案所到达 的state和相应的action序列，因此可设计一个函数Solution(node)获得这些序列。
-    return []
+    res = []
+    while node:
+        res.append(node.State)
+        node = node.Parent
+    return res
 
 
 def Astar(problem):
@@ -90,7 +98,7 @@ def Astar(problem):
     frontier.put(node)  # 第一个节点进入
     explored = set()  # 存储正在或者已经探索的状态
     while frontier.qsize() > 0:  # qsize()：队列尺寸
-        node = frontier.get()  # 取出节点进入前沿
+        node = frontier.get()  # 取出前沿中的节点，前沿大小减一
         explored.add(node.State)  # 记录探索过的状态
         for action in problem.Action(node.State):  # 遍历对可采取的行为
             child = Node(problem, node, action)  # 生成子节点
@@ -103,4 +111,5 @@ def Astar(problem):
 
 if __name__ == '__main__':
     problem = Problem(points, Adj, 1, 34)
-
+    res = Astar(problem)
+    print(res)
