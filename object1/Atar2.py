@@ -39,9 +39,7 @@ Adj[12][13] = Adj[13][12] = int(pow(pow(points[12][0] - points[13][0], 2) + pow(
 Adj[13][17] = Adj[17][13] = int(pow(pow(points[13][0] - points[17][0], 2) + pow(points[13][1] - points[17][1], 2), 0.5))
 Adj[17][28] = Adj[28][17] = int(pow(pow(points[17][0] - points[28][0], 2) + pow(points[17][1] - points[28][1], 2), 0.5))
 Adj[28][31] = Adj[31][28] = int(pow(pow(points[28][0] - points[31][0], 2) + pow(points[28][1] - points[31][1], 2), 0.5))
-Adj[23][27] = Adj[27][23] = int(pow(pow(points[23][0] - points[27][0], 2) + pow(points[23][1] - points[27][1], 2), 0.5))
-Adj[27][31] = Adj[31][27] = int(pow(pow(points[27][0] - points[31][0], 2) + pow(points[27][1] - points[31][1], 2), 0.5))
-Adj[12][28] = Adj[28][12] = int(pow(pow(points[12][0] - points[28][0], 2) + pow(points[12][1] - points[28][1], 2), 0.5))
+
 
 class Problem():
     def __init__(self, points, Adj, start, goal):

@@ -3,7 +3,7 @@
 from sqlalchemy import intersect
 from queue import PriorityQueue
 
-points = [(0, 0), (160, 260), (75, 170), (75, 285), (60, 355), (34, 470), (160, 570), (240, 320), (240, 472), (190, 490),
+points = [(0, 0), (260, 160), (75, 170), (75, 285), (60, 355), (34, 470), (160, 570), (240, 320), (240, 472), (190, 490),
           (340, 320), (440, 280), (440, 170), (460, 225), (425, 380), (340, 430), (340, 570), (530, 290), (505, 345),
           (425, 575), (485, 520), (585, 205), (650, 170), (585, 285), (505, 570), (720, 200), (720, 285), (660, 335),
           (650, 345), (650, 570), (665, 540), (735, 320), (715, 570), (755, 530), (775, 565)]
@@ -39,10 +39,6 @@ Adj[12][13] = Adj[13][12] = int(pow(pow(points[12][0] - points[13][0], 2) + pow(
 Adj[13][17] = Adj[17][13] = int(pow(pow(points[13][0] - points[17][0], 2) + pow(points[13][1] - points[17][1], 2), 0.5))
 Adj[17][28] = Adj[28][17] = int(pow(pow(points[17][0] - points[28][0], 2) + pow(points[17][1] - points[28][1], 2), 0.5))
 Adj[28][31] = Adj[31][28] = int(pow(pow(points[28][0] - points[31][0], 2) + pow(points[28][1] - points[31][1], 2), 0.5))
-Adj[23][27] = Adj[27][23] = int(pow(pow(points[23][0] - points[27][0], 2) + pow(points[23][1] - points[27][1], 2), 0.5))
-Adj[27][31] = Adj[31][27] = int(pow(pow(points[27][0] - points[31][0], 2) + pow(points[27][1] - points[31][1], 2), 0.5))
-Adj[12][28] = Adj[28][12] = int(pow(pow(points[12][0] - points[28][0], 2) + pow(points[12][1] - points[28][1], 2), 0.5))
-Adj[12][23] = Adj[23][12] = int(pow(pow(points[12][0] - points[23][0], 2) + pow(points[12][1] - points[23][1], 2), 0.5))
 Adj[1][22] = Adj[22][1] = int(pow(pow(points[1][0] - points[22][0], 2) + pow(points[1][1] - points[22][1], 2), 0.5))
 Adj[22][25] = Adj[25][22] = int(pow(pow(points[22][0] - points[25][0], 2) + pow(points[22][1] - points[25][1], 2), 0.5))
 Adj[25][26] = Adj[26][25] = int(pow(pow(points[25][0] - points[26][0], 2) + pow(points[25][1] - points[26][1], 2), 0.5))
