@@ -120,5 +120,5 @@ def Dijakstra(problem):
 
 if __name__ == '__main__':
     problem = Problem(points, Adj, 1, 34)
-    res = Dijakstra(problem)
-    print(res, D[-1])
+    path = Dijakstra(problem)
+    print(path, D[-1])
