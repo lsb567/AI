@@ -49,8 +49,8 @@ class Problem():
 
     def Action(self, state):  # 获取某状态下的行为集合
         states = []
-        for i in range(state + 1, 35):
-            if Adj[state][i] != float('inf'):
+        for i in range(1, 35):
+            if Adj[state][i] != float('inf') and Adj[state][i] != 0:
                 states.append(i)
         return states
 
@@ -93,6 +93,9 @@ def Solution(node):  # 从node的定义可知，根据node.parent可以回溯出
     return res[::-1]
 
 
+D = [float('inf') for i in range(35)]  # 存放起始点到各个点的最短距离
+
+
 def Dijakstra(problem):
     node = Node(problem)  # 起始节点
     if problem.GoalTest(node.State):
@@ -106,13 +109,16 @@ def Dijakstra(problem):
         for action in problem.Action(node.State):  # 遍历对可采取的行为
             child = Node(problem, node, action)  # 生成子节点
             if child.State not in explored:
+                D[child.State] = child.PathCost
                 if problem.GoalTest(child.State):  # 发现目标状态
                     return Solution(child)
                 frontier.put(child)  # 子节点进入前沿
                 explored.add(child.State)  # 前沿中的节点状态也要记录
+            elif child.State in explored:
+                D[child.State] = min(D[child.State], D[node.State] + Adj[node.State][child.State])
 
 
 if __name__ == '__main__':
     problem = Problem(points, Adj, 1, 34)
     res = Dijakstra(problem)
-    print(res)
+    print(res, D[-1])
