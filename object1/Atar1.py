@@ -81,7 +81,7 @@ class Node():
             return other.f > self.f
 
 
-def distance(a, b):
+def distance(a, b):  # 距离函数
     return int(pow(pow(a[0] - b[0], 2) + pow(a[1] - b[1], 2), 0.5))
 
 
