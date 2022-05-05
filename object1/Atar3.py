@@ -43,6 +43,7 @@ Adj[1][22] = Adj[22][1] = int(pow(pow(points[1][0] - points[22][0], 2) + pow(poi
 Adj[22][25] = Adj[25][22] = int(pow(pow(points[22][0] - points[25][0], 2) + pow(points[22][1] - points[25][1], 2), 0.5))
 Adj[25][26] = Adj[26][25] = int(pow(pow(points[25][0] - points[26][0], 2) + pow(points[25][1] - points[26][1], 2), 0.5))
 Adj[26][31] = Adj[31][26] = int(pow(pow(points[26][0] - points[31][0], 2) + pow(points[26][1] - points[31][1], 2), 0.5))
+Adj[25][31] = Adj[31][25] = int(pow(pow(points[25][0] - points[31][0], 2) + pow(points[25][1] - points[31][1], 2), 0.5))
 
 
 class Problem():
